@@ -449,7 +449,15 @@ function RecordModal({ tab, data, record, saving, onClose, onSave, onCreatePorta
 }
 
 function Fields({ tab, data, record }: { tab: Exclude<Tab, 'overview'>; data: DataState; record: RecordRow | null }) {
-  const value = (key: string, fallback = '') => record?.[key] ?? fallback
+  const value = (key: string, fallback: string = ''): string => {
+    const currentValue = record?.[key]
+
+    if (currentValue === null || currentValue === undefined) {
+      return fallback
+    }
+
+    return String(currentValue)
+  }
   if (tab === 'clients') return <>
     <Field label="Company name"><input name="company_name" defaultValue={value('company_name')} required /></Field>
     {!record ? (
@@ -465,7 +473,7 @@ function Fields({ tab, data, record }: { tab: Exclude<Tab, 'overview'>; data: Da
     )}
     <Field label="Phone"><input name="phone" defaultValue={value('phone')} /></Field>
     <Field label="Package"><select name="package_id" defaultValue={value('package_id')}><option value="">No package</option>{data.packages.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></Field>
-    <Field label="Reels used"><input name="reels_used" type="number" min="0" defaultValue={value('reels_used', 0)} /></Field>
+    <Field label="Reels used"><input name="reels_used" type="number" min="0" defaultValue={value('reels_used', '0')} /></Field>
     <Field label="Start date"><input name="start_date" type="date" defaultValue={value('start_date')} /></Field>
     <Field label="Renewal date"><input name="renewal_date" type="date" defaultValue={value('renewal_date')} /></Field>
     <Field label="Drive link" wide><input name="drive_link" type="url" defaultValue={value('drive_link')} /></Field>
@@ -473,9 +481,9 @@ function Fields({ tab, data, record }: { tab: Exclude<Tab, 'overview'>; data: Da
   </>
   if (tab === 'packages') return <>
     <Field label="Package name"><input name="name" defaultValue={value('name')} required /></Field>
-    <Field label="Price"><input name="price" type="number" min="0" step="0.01" defaultValue={value('price', 0)} required /></Field>
-    <Field label="Total reels"><input name="total_reels" type="number" min="0" defaultValue={value('total_reels', 0)} required /></Field>
-    <Field label="Status"><select name="active" defaultValue={String(value('active', true))}><option value="true">Active</option><option value="false">Inactive</option></select></Field>
+    <Field label="Price"><input name="price" type="number" min="0" step="0.01" defaultValue={value('price', '0')} required /></Field>
+    <Field label="Total reels"><input name="total_reels" type="number" min="0" defaultValue={value('total_reels', '0')} required /></Field>
+    <Field label="Status"><select name="active" defaultValue={value('active', 'true')}><option value="true">Active</option><option value="false">Inactive</option></select></Field>
     <Field label="Description" wide><textarea name="description" defaultValue={value('description')} /></Field>
   </>
   if (tab === 'influencers') return <>
@@ -483,9 +491,9 @@ function Fields({ tab, data, record }: { tab: Exclude<Tab, 'overview'>; data: Da
     <Field label="Instagram"><input name="instagram" defaultValue={value('instagram')} /></Field>
     <Field label="City"><input name="city" defaultValue={value('city')} /></Field>
     <Field label="Category / niche"><input name="niche" defaultValue={value('niche')} /></Field>
-    <Field label="Followers"><input name="followers" type="number" min="0" defaultValue={value('followers', 0)} /></Field>
-    <Field label="Engagement %"><input name="engagement" type="number" min="0" step="0.01" defaultValue={value('engagement', 0)} /></Field>
-    <Field label="Rate"><input name="rate" type="number" min="0" step="0.01" defaultValue={value('rate', 0)} /></Field>
+    <Field label="Followers"><input name="followers" type="number" min="0" defaultValue={value('followers', '0')} /></Field>
+    <Field label="Engagement %"><input name="engagement" type="number" min="0" step="0.01" defaultValue={value('engagement', '0')} /></Field>
+    <Field label="Rate"><input name="rate" type="number" min="0" step="0.01" defaultValue={value('rate', '0')} /></Field>
     <Field label="Phone"><input name="phone" defaultValue={value('phone')} /></Field>
     <Field label="Email"><input name="email" type="email" defaultValue={value('email')} /></Field>
     <Field label="Portfolio link"><input name="portfolio_url" type="url" defaultValue={value('portfolio_url')} /></Field>
@@ -503,7 +511,7 @@ function Fields({ tab, data, record }: { tab: Exclude<Tab, 'overview'>; data: Da
   return <>
     <Field label="Client"><select name="client_id" defaultValue={value('client_id')} required><option value="">Select client</option>{data.clients.map((item) => <option key={item.id} value={item.id}>{item.company_name}</option>)}</select></Field>
     <Field label="Invoice number"><input name="invoice_number" defaultValue={value('invoice_number')} required /></Field>
-    <Field label="Amount"><input name="amount" type="number" min="0" step="0.01" defaultValue={value('amount', 0)} required /></Field>
+    <Field label="Amount"><input name="amount" type="number" min="0" step="0.01" defaultValue={value('amount', '0')} required /></Field>
     <Field label="Status"><select name="status" defaultValue={value('status', 'pending')}><option value="pending">Pending</option><option value="paid">Paid</option><option value="overdue">Overdue</option></select></Field>
     <Field label="Due date"><input name="due_date" type="date" defaultValue={value('due_date')} /></Field>
     <Field label="Invoice link" wide><input name="url" type="url" defaultValue={value('url')} /></Field>
