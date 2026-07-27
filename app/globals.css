@@ -46,3 +46,165 @@
   border-radius: 12px;
   padding: 11px 13px;
 }
+
+/* ===== Growthika homepage motion upgrade ===== */
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(34px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: scale(.96) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); opacity: .75; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes scrollFloat {
+  0%, 100% { transform: translateY(0); opacity: .55; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.heroGlow {
+  animation: glowPulse 7s ease-in-out infinite;
+}
+
+.hero-kicker {
+  opacity: 0;
+  animation: heroFadeUp .7s cubic-bezier(.22,1,.36,1) .08s forwards;
+}
+
+.hero-title {
+  opacity: 0;
+  animation: heroFadeUp .9s cubic-bezier(.22,1,.36,1) .18s forwards;
+}
+
+.hero-description {
+  opacity: 0;
+  animation: heroFadeUp .85s cubic-bezier(.22,1,.36,1) .32s forwards;
+}
+
+.hero-actions-enter {
+  opacity: 0;
+  animation: heroFadeUp .8s cubic-bezier(.22,1,.36,1) .45s forwards;
+}
+
+.hero-stats-enter {
+  opacity: 0;
+  animation: heroFadeUp .8s cubic-bezier(.22,1,.36,1) .58s forwards;
+}
+
+.hero-visual-enter {
+  opacity: 0;
+  animation: heroFadeIn 1.1s cubic-bezier(.22,1,.36,1) .25s forwards;
+}
+
+.scrollHint {
+  animation: scrollFloat 2s ease-in-out infinite;
+}
+
+.animated-section {
+  opacity: 0;
+  transform: translateY(54px);
+  transition:
+    opacity .9s cubic-bezier(.22,1,.36,1),
+    transform .9s cubic-bezier(.22,1,.36,1);
+  will-change: opacity, transform;
+}
+
+.animated-section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(28px) scale(.985);
+  transition:
+    opacity .7s cubic-bezier(.22,1,.36,1),
+    transform .7s cubic-bezier(.22,1,.36,1);
+}
+
+.animated-section-visible .stagger-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.animated-section-visible .stagger-item:nth-child(1) { transition-delay: .05s; }
+.animated-section-visible .stagger-item:nth-child(2) { transition-delay: .12s; }
+.animated-section-visible .stagger-item:nth-child(3) { transition-delay: .19s; }
+.animated-section-visible .stagger-item:nth-child(4) { transition-delay: .26s; }
+.animated-section-visible .stagger-item:nth-child(5) { transition-delay: .33s; }
+.animated-section-visible .stagger-item:nth-child(6) { transition-delay: .40s; }
+
+.serviceCard,
+.priceCard,
+.promiseGrid > div,
+.videoGrid video {
+  transition:
+    transform .4s cubic-bezier(.22,1,.36,1),
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+
+.serviceCard:hover,
+.priceCard:hover,
+.promiseGrid > div:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 65px rgba(0,0,0,.28);
+}
+
+.videoGrid video:hover {
+  transform: scale(1.018);
+}
+
+.primary,
+.ghost,
+.textLink {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease,
+    background .25s ease;
+}
+
+.primary:hover,
+.ghost:hover,
+.textLink:hover {
+  transform: translateY(-2px);
+}
+
+.contact {
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+}
+
+.contact:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 35px 100px rgba(255,122,24,.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroGlow,
+  .scrollHint,
+  .hero-kicker,
+  .hero-title,
+  .hero-description,
+  .hero-actions-enter,
+  .hero-stats-enter,
+  .hero-visual-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animated-section,
+  .stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
